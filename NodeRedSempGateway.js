@@ -161,7 +161,12 @@ class NodeRedSempGateway {
                         break
                     }
                 }
-            }    
+            }   
+            else if (ips.length === 1)
+            {
+                this.ipAddress = ips[0].ipaddr
+                console.log("SEMP: Using " + this.ipAddress + " from device " + ip.name)
+            } 
         }
         else
         {
@@ -405,6 +410,10 @@ module.exports = {
         }
         instance = new NodeRedSempGateway(options);
         instance.start();
+    },
+    dispose: function()
+    {
+        instance = null
     },
     addDevice: function(device)
     {
