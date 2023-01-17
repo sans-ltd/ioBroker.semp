@@ -50,7 +50,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "main": "main.js",
+  "main": "NodeRedSempGateway.js",
   "scripts": {
     "test": "npm run test:package && npm run test:unit",
     "test:package": "mocha test/package --exit",
