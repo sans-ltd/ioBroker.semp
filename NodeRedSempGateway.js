@@ -165,7 +165,7 @@ class NodeRedSempGateway {
             else if (ips.length === 1)
             {
                 this.ipAddress = ips[0].ipaddr
-                console.log("SEMP: Using " + this.ipAddress + " from device " + ip.name)
+                console.log("SEMP: Using " + this.ipAddress + " from device " + ips[0].name)
             } 
         }
         else
