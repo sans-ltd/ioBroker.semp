@@ -60,7 +60,7 @@ class NodeRedSempGateway {
             
             subscribeForeignStates: function(key)
             {
-                console.log("ioBrokerMockAdaptor.subscribeForeignStates: key: " + key);
+                // console.log("ioBrokerMockAdaptor.subscribeForeignStates: key: " + key);
             },
             setForeignStateAsync: async function(key, value)
             {
@@ -69,7 +69,7 @@ class NodeRedSempGateway {
             },
             getForeignStateAsync: async function(key)
             {
-                console.log("ioBrokerMockAdaptor.getForeignStateAsync: key: " + key);
+                // console.log("ioBrokerMockAdaptor.getForeignStateAsync: key: " + key);
                 return null;
             },
             setForeignState: function(key, value)
@@ -79,12 +79,12 @@ class NodeRedSempGateway {
             },
             getForeignState: async function(key)
             {
-                console.log("ioBrokerMockAdaptor.getForeignState: key: " + key);
+                // console.log("ioBrokerMockAdaptor.getForeignState: key: " + key);
                 return null;
             },
             subscribeStates: function(key)
             {
-                console.log("ioBrokerMockAdaptor.subscribeStates: key: " + key);
+                // console.log("ioBrokerMockAdaptor.subscribeStates: key: " + key);
             },
             setStateAsync: async function(key, value)
             {
@@ -93,7 +93,7 @@ class NodeRedSempGateway {
             },
             getStateAsync: async function(key)
             {
-                console.log("ioBrokerMockAdaptor.getStateAsync: key: " + key);
+                // console.log("ioBrokerMockAdaptor.getStateAsync: key: " + key);
                 return null;
             },
             setState: function(key, value)
@@ -103,17 +103,17 @@ class NodeRedSempGateway {
             },
             getState: async function(key)
             {
-                console.log("ioBrokerMockAdaptor.getState: key: " + key);
+                // console.log("ioBrokerMockAdaptor.getState: key: " + key);
                 return null;
             },
             getObjectAsync: async function(key)
             {
-                console.log("ioBrokerMockAdaptor.getObjectAsync: key: " + key);
+                // console.log("ioBrokerMockAdaptor.getObjectAsync: key: " + key);
                 return null;                
             },
             setObjectNotExistsAsync: async function(key, obj)
             {
-                console.log("ioBrokerMockAdaptor.setObjectNotExistsAsync: key: " + key + " obj: " + JSON.stringify(obj));
+                // console.log("ioBrokerMockAdaptor.setObjectNotExistsAsync: key: " + key + " obj: " + JSON.stringify(obj));
             }
         }
 
