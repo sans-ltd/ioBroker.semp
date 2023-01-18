@@ -413,6 +413,12 @@ module.exports = {
     },
     dispose: function()
     {
+        if (instance === null)
+        {
+            console.warn("SEMP: dispose: NOT initialized.");
+            return;
+        }
+        instance.gw.stop();
         instance = null
     },
     addDevice: function(device)
