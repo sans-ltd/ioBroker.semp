@@ -14,8 +14,8 @@ var deviceID = sma.addDevice({
     statusDetection: "FromOnOffStatus",
     isSwitcheable: true  // device can be controlled by the SEMP Energy Manager
 })
-/*
-sma.addPlanningRequest(deviceID, [{
+
+sma.setPlanningRequest(deviceID, [{
     earliestStartTime: "12:00", 
     latestEndTime: "15:00",
     minRunTime: "1:20:05",
@@ -26,14 +26,15 @@ sma.addPlanningRequest(deviceID, [{
     minRunTime: "0:30",
     maxRunTime: "0:40" 
 }])
-*/
 
-sma.addPlanningRequest(deviceID, {
-    earliestStartIn_s: "4800", 
-    latestEndIn_s: "7800",
-    minRunDuration_s: "100",
-    maxRunDuration_s: "200" 
+/*
+sma.setPlanningRequest(deviceID, {
+    earliestStartIn_s: 4800, 
+    latestEndIn_s: 7800,
+    minRunDuration_s: 100,
+    maxRunDuration_s: 200 
 })
+*/
 
 sma.setCallback(deviceID, "CurrentState", function(value) {
     console.warn("CurrentState Callback: " + value)

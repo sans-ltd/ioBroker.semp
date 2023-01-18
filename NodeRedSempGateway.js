@@ -285,19 +285,12 @@ table EnergyRequestPeriods          devices[id].EnergyRequestPeriods
     -> MinRunTime
     -> MaxRunTime
 */
-    
-    secondsToTime(seconds)
-    {
-        let mins = Math.floor(seconds / 60)
-        let hours = Math.floor(mins / 60)
-        return hours + ":" + (mins % 60) 
-    }
 
-    addPlanningRequest(deviceID, periods)
+    setPlanningRequest(deviceID, periods)
     {
         if (typeof(this.registeredDevices[deviceID]) === "undefined") 
         {
-            console.warn("SEMP: addPlanningRequest: Device " + deviceID + " does not exist!")
+            console.warn("SEMP: setPlanningRequest: Device " + deviceID + " does not exist!")
             return
         }
 
@@ -310,44 +303,46 @@ table EnergyRequestPeriods          devices[id].EnergyRequestPeriods
         let energyRequestPeriods = []
         for (const period of periods)
         {
-            if (typeof(period.earliestStartTime) === "undefined" && typeof(period.earliestStartIn_s !== "undefined"))
-                period.earliestStartTime = this.secondsToTime(period.earliestStartIn_s) 
-            if (typeof(period.latestEndTime) === "undefined" && typeof(period.latestEndIn_s !== "undefined"))
-                period.latestEndTime = this.secondsToTime(period.latestEndIn_s) 
-            if (typeof(period.minRunTime) === "undefined" && typeof(period.minRunDuration_s !== "undefined"))
-                period.minRunTime = this.secondsToTime(period.minRunDuration_s) 
-            if (typeof(period.maxRunTime) === "undefined" && typeof(period.maxRunDuration_s !== "undefined"))
-                period.maxRunTime = this.secondsToTime(period.maxRunDuration_s) 
-            
-            if (typeof(period.earliestStartTime) === "undefined")
-            {
-                console.warn("SEMP: addPlanningRequest: Device " + deviceID + " Either earliestStartTime or earliestStartIn_s has to be given in periods object/array of objects")
-                return
-            }
-            if (typeof(period.latestEndTime) === "undefined")
-            {
-                console.warn("SEMP: addPlanningRequest: Device " + deviceID + " Either latestEndTime or latestEndIn_s has to be given in periods object/array of objects")
-                return
-            }
-            if (typeof(period.minRunTime) === "undefined")
-            {
-                console.warn("SEMP: addPlanningRequest: Device " + deviceID + " Either minRunTime or minRunDuration_s has to be given in periods object/array of objects")
-                return
-            }
-            if (typeof(period.maxRunTime) === "undefined")
-            {
-                console.warn("SEMP: addPlanningRequest: Device " + deviceID + " Either maxRunTime or maxRunDuration_s has to be given in periods object/array of objects")
-                return
-            }
-
-            energyRequestPeriods.push({
+            let reqPeriod = {
                 ID: deviceID,
                 EarliestStartTime: period.earliestStartTime,
                 LatestEndTime:     period.latestEndTime,
                 MinRunTime:        period.minRunTime,
                 MaxRunTime:        period.maxRunTime,
                 Days:              "everyDay"
-            })
+            }
+
+            if (typeof(period.earliestStartTime) === "undefined" && typeof(period.earliestStartIn_s !== "undefined"))
+                reqPeriod.EarliestStartTime = period.earliestStartIn_s
+            if (typeof(period.latestEndTime) === "undefined" && typeof(period.latestEndIn_s !== "undefined"))
+                reqPeriod.LatestEndTime = period.latestEndIn_s
+            if (typeof(period.minRunTime) === "undefined" && typeof(period.minRunDuration_s !== "undefined"))
+                reqPeriod.MinRunTime = period.minRunDuration_s
+            if (typeof(period.maxRunTime) === "undefined" && typeof(period.maxRunDuration_s !== "undefined"))
+                reqPeriod.MaxRunTime = period.maxRunDuration_s
+            
+            if (typeof(reqPeriod.EarliestStartTime) === "undefined")
+            {
+                console.warn("SEMP: setPlanningRequest: Device " + deviceID + " Either earliestStartTime or earliestStartIn_s has to be given in periods object/array of objects")
+                return
+            }
+            if (typeof(reqPeriod.LatestEndTime) === "undefined")
+            {
+                console.warn("SEMP: setPlanningRequest: Device " + deviceID + " Either latestEndTime or latestEndIn_s has to be given in periods object/array of objects")
+                return
+            }
+            if (typeof(reqPeriod.MinRunTime) === "undefined")
+            {
+                console.warn("SEMP: setPlanningRequest: Device " + deviceID + " Either minRunTime or minRunDuration_s has to be given in periods object/array of objects")
+                return
+            }
+            if (typeof(reqPeriod.MaxRunTime) === "undefined")
+            {
+                console.warn("SEMP: setPlanningRequest: Device " + deviceID + " Either maxRunTime or maxRunDuration_s has to be given in periods object/array of objects")
+                return
+            }
+
+            energyRequestPeriods.push(reqPeriod)
         }
 
         this.gw.deleteDevice(deviceID)
@@ -430,14 +425,14 @@ module.exports = {
         }
         return instance.addDevice(device);
     },
-    addPlanningRequest: function(deviceID, periods)
+    setPlanningRequest: function(deviceID, periods)
     {
         if (instance === null)
         {
-            console.warn("SEMP: addEnergyRequest: NOT initialized.");
+            console.warn("SEMP: setPlanningRequest: NOT initialized.");
             return;
         }
-        instance.addPlanningRequest(deviceID, periods);
+        instance.setPlanningRequest(deviceID, periods);
     },
     setCallback: function(deviceID, eventName, callback)
     {
