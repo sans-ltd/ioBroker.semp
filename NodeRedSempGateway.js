@@ -7,6 +7,7 @@ class NodeRedSempGateway {
         this.sempPort = 9765
         this.sempName = "NodeRED SEMP Gateway"
         this.sempManufacturer = "NodeRED"
+        this.logDebugMessages = false
 
         if (typeof(options) != "undefined")
         {
@@ -41,8 +42,8 @@ class NodeRedSempGateway {
 
         this.ioBrokerMockAdaptor = {
             log: {
-                trace: function(msg) {/*console.trace(msg)*/},
-                debug: function(msg) {/*console.debug(msg)*/},
+                trace: function(msg) {if (this.logDebugMessages) console.trace(msg)},
+                debug: function(msg) {if (this.logDebugMessages) console.debug(msg)},
                 info: function(msg) {console.info(msg)},
                 warn: function(msg) {console.warn(msg)},
                 error: function(msg) {console.error(msg)}
@@ -460,5 +461,9 @@ module.exports = {
             return;
         }
         instance.setOnOffStatus(deviceID, status);
+    },
+    setLogDebugMessages: function(enable)
+    {
+        instance.logDebugMessages = enable
     }
 }
