@@ -41,8 +41,8 @@ class NodeRedSempGateway {
 
         this.ioBrokerMockAdaptor = {
             log: {
-                trace: function(msg) {console.trace(msg)},
-                debug: function(msg) {console.debug(msg)},
+                trace: function(msg) {/*console.trace(msg)*/},
+                debug: function(msg) {/*console.debug(msg)*/},
                 info: function(msg) {console.info(msg)},
                 warn: function(msg) {console.warn(msg)},
                 error: function(msg) {console.error(msg)}
